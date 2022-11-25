@@ -28,6 +28,7 @@ export const AppContextProvider = ({ children }) => {
           updateNft: () => {},
           deleteNft: () => {},
 
+          createUser: () => {},
           updateUser: () => {},
           deleteUser: () => {},
         },
