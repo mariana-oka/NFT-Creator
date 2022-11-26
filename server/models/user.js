@@ -15,6 +15,51 @@ class User {
     this.walletAddress = data.walletAddress;
   }
 
+  static async findAll() {
+    const users = await db.users.find().toArray();
+
+    return users;
+  }
+
+  static async findOne(id) {
+    const user = await db.users.findOne({ id });
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    return user;
+  }
+
+  static async create(data) {
+    const user = new this(data);
+    await user.validate();
+
+    await db.users.insertOne(user);
+
+    return user;
+  }
+
+  static async update(data) {
+    const user = new this(data);
+    await user.validate();
+
+    await db.users.updateOne(
+      { id: user.id },
+      { $set: user }
+    )
+    
+    return user;
+  }
+
+  static async delete(id) {
+    const user = await this.findOne(id);
+  
+    await db.users.deleteOne({ id: user.id });
+
+    return true;
+  }
+
   async validate() {
     if (!this.walletAddress) {
       throw new Error('User must have a wallet address');

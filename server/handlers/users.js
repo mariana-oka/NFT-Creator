@@ -1,8 +1,7 @@
-const db = require('../db');
 const { User } = require('../models')
 
 const findUsers = async () => {
-  const users = await db.users.find().toArray();
+  const users = await User.findAll();
 
   return {
     users
@@ -10,7 +9,7 @@ const findUsers = async () => {
 }
 
 const getUser = async (userId) => {
-  const user = await db.users.findOne({ id: userId });
+  const user = await User.findOne(userId);
   
   return {
     user,
@@ -18,10 +17,7 @@ const getUser = async (userId) => {
 }
 
 const createUser = async (data) => {
-  const user = new User(data);
-  await user.validate();
-
-  await db.users.insertOne(data);
+  const user = User.create(data);
 
   return user;
 }
@@ -46,28 +42,16 @@ const updateUser = async (data) => {
     coverPhotoUrl: data.coverPhotoUrl,
   }
 
-  const updatedUser = new User(updatedUserDetails);
-  await updatedUser.validate();
-
-  await db.users.updateOne(
-    { id: user.id },
-    { $set: updatedUserDetails }
-  )
+  const updatedUser = User.update(updatedUserDetails);
 
   return updatedUser;
 }
 
 const deleteUser = async (userId) => {
-  const user = await db.users.findOne({ id: userId });
+  const result = await User.delete(userId);
   
-  if (!user) {
-    throw new Error('User not found');
-  }
-
-  await db.users.deleteOne({ id: userId })
-
   return {
-    success: true,
+    success: result,
   }
 }
 

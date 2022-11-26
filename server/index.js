@@ -30,10 +30,14 @@ express()
     res.status(200).json(result);
   })
 
-  .post('/nfts', (req, res) => {
-    const result = nftHandlers.createNft(req.body);
-
-    res.status(200).json(result);
+  .post('/nfts', async (req, res) => {
+    try {
+      const result = await nftHandlers.createNft(req.body);
+      
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({ error: error.message });   
+    }
   })
 
   .patch('/nfts', (req, res) => {
@@ -59,9 +63,13 @@ express()
   })
 
   .get('/users/:userId', async (req, res) => {
-    const result = await usersHandlers.getUser(req.params.userId);
+    try {
+      const result = await usersHandlers.getUser(req.params.userId);
 
-    res.status(200).json(result);
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
   })
 
   .post('/users', async (req, res) => {
