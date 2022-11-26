@@ -20,6 +20,30 @@ class Nft {
     this.mediaType = data.mediaType;
   }
 
+  static async findAll() {
+    const nfts = await db.nfts.find().toArray();
+
+    return nfts;
+  }
+
+  static async findAllForUser(userId) {
+    const nfts = await this.findAll();
+
+    const userNfts = nfts.filter(nft => nft.userId === userId);
+
+    return userNfts;
+  }
+
+  static async find(id) {
+    const nft = await db.nfts.findOne({ id });
+
+    if (!nft) {
+      throw new Error(`Nft with id ${id} not found.`);
+    }
+
+    return nft;
+  }
+
   static async create(data) {
     const nft = new this(data);
 

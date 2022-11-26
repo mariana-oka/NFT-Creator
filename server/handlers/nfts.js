@@ -1,16 +1,22 @@
 const { Nft } = require('../models');
 const { nftPortClient } = require('../clients');
 
-const findNfts = () => {
-  return {
-    success: true,
+const findNfts = async (userId) => {
+  let nfts;
+
+  if (userId) {
+    nfts = await Nft.findAllForUser(userId);
+  } else {
+    nfts = await Nft.findAll();
   }
+
+  return nfts;
 }
 
-const getNft = () => {
-  return {
-    success: true,
-  }
+const getNft = async (id) => {
+  const nft = await Nft.find(id);
+
+  return nft;
 }
 
 const createNft = async (data) => {

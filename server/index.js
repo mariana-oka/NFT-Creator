@@ -18,16 +18,24 @@ express()
     res.status(200).json({status: 200, message: 'Hello World!'})
   })
 
-  .get('/nfts', (req, res) => {
-    const result = nftHandlers.findNfts(req.body);
+  .get('/nfts', async (req, res) => {
+    try {
+      const result = await nftHandlers.findNfts(req.query.userId);
 
-    res.status(200).json(result);
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({ error: error.message });   
+    }
   })
 
-  .get('/nft/:nftId', (req, res) => {
-    const result = nftHandlers.getNft(req.body);
+  .get('/nfts/:nftId', async (req, res) => {
+    try {
+      const result = await nftHandlers.getNft(req.params.nftId);
 
-    res.status(200).json(result);
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({ error: error.message });   
+    }
   })
 
   .post('/nfts', async (req, res) => {
