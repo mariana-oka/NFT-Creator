@@ -6,6 +6,10 @@ const BASE_URL = 'https://api.nftport.xyz/v0';
 const TEMPLATE_FILE = '/Users/mari/Documents/Play/#Machine Visions/#MINDJOURNEY/#VELVETEENS RABIT/metaversekitty_inside_white_minimal_futuristic_lab_workers_in_b_e5558508-f135-47b8-ba52-9f962faeddd2.png';
 
 class NftPort {
+  async sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
   async mint({ name, description, userWallet, file }) {
     console.log('[NFT Client] Starting minting process.');
 
@@ -36,8 +40,7 @@ class NftPort {
 
   async getTokenId({ transactionHash }) {  
     console.log('[NFT Client] Waiting for blockchain to mine NFT');
-    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-    await sleep(10_000);
+    await this.sleep(10_000);
     
     const response = await fetch(
       `${BASE_URL}/mints/${transactionHash}?chain=polygon`, 
@@ -58,8 +61,7 @@ class NftPort {
   
   async getUri({ contractAddress, tokenId }) {
     console.log('[NFT Client] Waiting for blockhain to enrich NFT metadata.');
-    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-    await sleep(10_000);
+    await this.sleep(10_000);
 
     console.log('[NFT Client] Getting NFT URI from IFPS');
     

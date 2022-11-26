@@ -1,4 +1,5 @@
 const { Nft } = require('../models');
+const { nftPortClient } = require('../clients');
 
 const findNfts = () => {
   return {
@@ -13,7 +14,37 @@ const getNft = () => {
 }
 
 const createNft = async (data) => {
-  const nft = await Nft.create(data);
+  const {
+    name,
+    description, 
+    userWallet, 
+    file,
+    mediaType,
+    userId,
+  } = data;
+
+  const { 
+    contract_address: contractAddress,
+    transaction_hash: transactionHash,
+    transaction_external_url: blockExplorerUrl,
+  } = await nftPortClient.mint({  name, description, userWallet, file });
+
+  const tokenId = await nftPortClient.getTokenId({ transactionHash });
+
+  const uri = await nftPortClient.getUri({ tokenId, contractAddress });
+
+  const nft = await Nft.create({
+    blockExplorerUrl,
+    name, 
+    description,
+    userWallet,
+    userWallet, 
+    mediaType, 
+    userId, 
+    tokenId, 
+    uri,
+    contractAddress,
+  });
 
   return nft;
 }
