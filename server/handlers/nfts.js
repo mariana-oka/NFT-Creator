@@ -1,3 +1,5 @@
+const db = require('../db')
+
 const findNfts = () => {
   return {
     success: true,
@@ -31,7 +33,7 @@ const deleteNft = () => {
 module.exports = {
   getNft,
   findNfts,
-  
+
   createNft,
   updateNft,
   deleteNft

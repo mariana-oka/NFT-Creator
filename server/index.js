@@ -1,6 +1,7 @@
 const express = require('express')
 const helmet = require('helmet')
-morgan = require('morgan')
+const morgan = require('morgan')
+
 const {
   nftHandlers,
   usersHandlers,
@@ -9,7 +10,6 @@ const {
 const PORT = 8000;
 
 express()
-
   .use(express.json())
   .use(helmet())
   .use(morgan('tiny')) 
@@ -48,29 +48,53 @@ express()
     res.status(200).json(result);
   })
 
-  .get('/user/:userId', (req, res) => {
-    const result = usersHandlers.getUser(req.body);
+  .get('/users', async (req, res) => {
+    try {
+      const result = await usersHandlers.findUsers();
+  
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({ error: error.message });   
+    }
+  })
+
+  .get('/users/:userId', async (req, res) => {
+    const result = await usersHandlers.getUser(req.params.userId);
 
     res.status(200).json(result);
   })
 
-  .post('/users', (req, res) => {
-    const result = usersHandlers.createUser(req.body);
+  .post('/users', async (req, res) => {
+    try {
+      const result = await usersHandlers.createUser(req.body);
 
-    res.status(200).json(result);
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({ error: error.message });   
+    }
   })
 
-  .patch('/users', (req, res) => {
-    const result = usersHandlers.updateUser(req.body);
+  .patch('/users', async (req, res) => {
+    try {
+      const result = await usersHandlers.updateUser(req.body);
 
-    res.status(200).json(result);
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
   })
 
-  .delete('/users', (req, res) => {
-    const result = usersHandlers.deleteUser(req.body);
+  // delete individual user
+  .delete('/users/:userId', async (req, res) => {
+    try {
+      const result = await usersHandlers.deleteUser(req.params.userId);
 
-    res.status(200).json(result);
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
   })
+
 
   .listen(PORT, () => {
     console.log(`Example app listening on port ${PORT}`)
