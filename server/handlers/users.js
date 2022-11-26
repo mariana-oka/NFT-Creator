@@ -19,7 +19,6 @@ const getUser = async (userId) => {
 
 const createUser = async (data) => {
   const user = new User(data);
-  
   await user.validate();
 
   await db.users.insertOne(data);
