@@ -17,6 +17,12 @@ const getUser = async (userId) => {
 }
 
 const createUser = async (data) => {
+  const existingUser = await User.findBy({ walletAddress: data.walletAddress });
+
+  if (existingUser) {
+    return existingUser
+  }
+
   const user = User.create(data);
 
   return user;

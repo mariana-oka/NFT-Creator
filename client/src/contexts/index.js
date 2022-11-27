@@ -1,12 +1,18 @@
 import { createContext, useReducer } from 'react';
 import appReducer from './reducer';
-import { login } from './actions';
+import { login, logout, findNfts } from './actions';
 
 const initialState = {
-  userLoggedIn: window.localStorage.getItem('userLoggedIn') || false,
-  walletAddress: window.localStorage.getItem('walletAddress') || false,
+  session: {
+    userLoggedIn: window.sessionStorage.getItem('userLoggedIn') || false,
+    walletAddress: window.sessionStorage.getItem('walletAddress') || false,
+  },
   
   nfts: {},
+  
+  user: JSON.parse(
+    window.sessionStorage.getItem('user')
+  ) || {}
 };
 
 export const AppContext = createContext();
@@ -20,19 +26,25 @@ export const AppContextProvider = ({ children }) => {
         state,
         dispatch: {
           login: (data) => login(data, dispatch),
-          logout: () => {},
 
-          findNfts: () => {},
-          getNft: () => {},
-          createNft: () => {},
-          updateNft: () => {},
-          deleteNft: () => {},
+          logout: (data) => logout(data, dispatch),
 
-          createUser: () => {},
-          updateUser: () => {},
-          deleteUser: () => {},
-        },
-      }}
+          findNfts: (data) => findNfts(data, dispatch), 
+        
+          getNft: (data) => {},
+
+          createNft: (data) => {},
+
+          deleteNft: (data) => {},
+  
+          createUser: (data) => {},
+
+          findUser: (data) => {},
+
+          updateUser: (data) => {},
+    
+          deleteUser: (data) => {},
+      }}}
     >
       {children}
     </AppContext.Provider>

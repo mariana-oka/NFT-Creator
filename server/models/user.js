@@ -31,6 +31,12 @@ class User {
     return user;
   }
 
+  static async findBy(data) {
+    const user = await db.users.findOne(data);
+
+    return user;
+  }
+
   static async create(data) {
     const user = new this(data);
     await user.validate();

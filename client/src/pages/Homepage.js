@@ -18,7 +18,6 @@ const Homepage = () => {
   );
 };
 
-
 //Make the homepage responsive to different screen sizes.
 //Create a styled component for the homepage that has the text and button to the left and a picture to the right, centered in the middle of the page.
 const Wrapper = styled.div`
@@ -105,20 +104,3 @@ const Right = styled.div`
 `;
 
 export default Homepage;
-
-
-//     <Wrapper>
-//       <Hero>
-//       <Intro>
-//         <h5>WELCOME TO THE CREATOR ECONOMY</h5>
-//         <h1>Create a wallet and start minting</h1>
-//         <p>Free and easy wallet creation and NFT minting</p>
-//       </Intro>
-//       <Button> Get Started </Button>
-//       </Hero>
-//     </Wrapper>
-//   );
-// }
-
-// Create a 
-//Create a styled component for the homepage
