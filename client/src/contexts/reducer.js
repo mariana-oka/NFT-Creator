@@ -22,6 +22,14 @@ const appReducer = (state, action) => {
 
         user: {},
       }
+
+    case 'FIND_NFTS': 
+      return {
+        ...state,
+
+        nfts: action.payload.nfts,
+      }
+
     default: {
       return state;
     }

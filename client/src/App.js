@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 import GlobalStyles from "./GlobalStyles";
 import Header from "./components/Header";
@@ -22,16 +22,36 @@ const App = () => {
       >
         {state.session.userLoggedIn ? 'Log Out' : 'Log In'}
       </button>
+      {
+        state.session.userLoggedIn && (
+          <Link to="nft-gallery">
+            View Nft Gallery
+          </Link>
+        )
+      }
+            {
+        state.session.userLoggedIn && (
+          <Link to="nft-maker">
+            Nft Maker
+          </Link>
+        )
+      }
       <GlobalStyles />
       <Header />
       <Main>
         <Routes>
           <Route path={"/"} element={<Homepage />} />
-          <Route path={"/nft-maker"} element={<NFTMaker />} />
-          <Route path={"/confirmation"} element={<Confirmation />} /> 
-          <Route path={"/nft-gallery"} element={<NFTGallery />} />
-          <Route path={"/profile-edit"} element={<ProfileEdit />} />
-          <Route path={"/confirmation"} element={<Confirmation />} />
+          {
+            state.session.userLoggedIn && (
+              <>
+                <Route path={"/nft-maker"} element={<NFTMaker />} />
+                <Route path={"/confirmation"} element={<Confirmation />} /> 
+                <Route path={"/nft-gallery"} element={<NFTGallery />} />
+                <Route path={"/profile-edit"} element={<ProfileEdit />} />
+                <Route path={"/confirmation"} element={<Confirmation />} />
+              </>
+            )
+          }
           <Route path={"*"} element={<Error />} />
         </Routes>
       </Main>

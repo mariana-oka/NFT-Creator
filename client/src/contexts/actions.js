@@ -45,14 +45,18 @@ export const logout = async (data, dispatch) => {
 }
 
 export const findNfts = async (data, dispatch) => {
-  // const nfts = await client.api.getAssets();
+  const response = await fetch(`${BASE_URL}/nfts`);
 
-  // dispatch({
-  //   type: 'FIND_NFTS',
-  //   payload: {
-  //     nfts,
-  //   },
-  // })
+  const nfts = await response.json();
+
+  dispatch({
+    type: 'FIND_NFTS',
+    payload: {
+      nfts,
+    },
+  })
+
+  return nfts;
 }
 
 export const getNft = async (data, dispatch) => {

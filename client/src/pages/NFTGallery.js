@@ -1,14 +1,22 @@
+import { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
+import { AppContext } from '../contexts/index';
 
 const NFTGallery = () => {
+  const { state, dispatch} = useContext(AppContext);
   const [nfts, setNfts] = useState([]);
+
+  useEffect(() => {
+    dispatch
+      .findNfts()
+      .then(data => setNfts(data))
+  }, []);
 
   return (
     <NFTGalleryContainer>
       <h1>NFT Gallery</h1>
       <NFTGalleryWrapper>
-        {nfts.map((nft) => (
+        {nfts.length > 0 && nfts.map((nft) => (
           <NFTCard key={nft.id}>
             <NFTImage src={nft.uri} />
             <NFTName>{nft.name}</NFTName>
