@@ -33,7 +33,22 @@ const appReducer = (state, action) => {
     default: {
       return state;
     }
+
+    case 'GET_NFT':
+      return {
+        ...state,
+
+        nft: action.payload.nft,
   }
-}
+
+  //Create case for get user
+  case 'GET_USER':
+    return {
+      ...state,
+
+      user: action.payload.user,
+    }
+}}
+
 
 export default appReducer;

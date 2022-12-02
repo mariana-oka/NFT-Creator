@@ -8,8 +8,8 @@ const findUsers = async () => {
   }
 }
 
-const getUser = async (userId) => {
-  const user = await User.findOne(userId);
+const getUser = async (id) => {
+  const user = await User.findOne(id);
   
   return {
     user,

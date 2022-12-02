@@ -36,10 +36,12 @@ class Nft {
 
   static async find(id) {
     const nft = await db.nfts.findOne({ id });
+    
 
     if (!nft) {
       throw new Error(`Nft with id ${id} not found.`);
     }
+
 
     return nft;
   }

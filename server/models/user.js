@@ -22,7 +22,7 @@ class User {
   }
 
   static async findOne(id) {
-    const user = await db.users.findOne({ id });
+    const user = await db.users.findOne({id});
 
     if (!user) {
       throw new Error('User not found');

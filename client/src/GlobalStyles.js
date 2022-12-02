@@ -2,6 +2,7 @@ import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
   :root {
+    background-color: #141416;
 
 
     html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5,
@@ -52,6 +53,12 @@ h4 {
   font-weight: 700; 
 }
 
+p {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  color: #B1B5C3;
+}
+
 h1 {
   font-size: 64px;
   line-height: 1;
@@ -85,6 +92,15 @@ h2 {
     font-weight: 600;
   }
 
+  label {
+    font-family: poppins, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 12px;
+    color: #B1B5C3;
+    text-transform: uppercase;
+  }
+
   button {
   display: inline-flex;
   justify-content: center;
@@ -99,7 +115,7 @@ h2 {
   text-align: center;
   color: #FCFCFD;
   transition: all .2s; 
-  border-radius: 50%;
+  border-radius: 45px;
   
   &:hover {
     background: #044eff; 
@@ -140,7 +156,7 @@ input {
   font-size: 14px;
   line-height: 1.71429;
   font-weight: 500;
-  color: #23262F;
+  color: #777E90;
 }
 
 body.dark .field__input, body.dark .field__textarea {

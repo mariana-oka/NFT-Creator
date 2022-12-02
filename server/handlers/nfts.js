@@ -13,10 +13,11 @@ const findNfts = async (userId) => {
   return nfts;
 }
 
+//Create a new async function to get the individual NFT by ID from the database
 const getNft = async (id) => {
   const nft = await Nft.find(id);
-
   return nft;
+  console.log (nft)
 }
 
 const createNft = async (data) => {

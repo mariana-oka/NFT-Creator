@@ -60,12 +60,57 @@ export const findNfts = async (data, dispatch) => {
 }
 
 export const getNft = async (data, dispatch) => {
-  // const nft = await client.api.getAsset(data);
+  const response = await fetch(`${BASE_URL}/nfts/${data.id}`);
+  const nft = await response.json();
 
-  // dispatch({
-  //   type: 'GET_NFT',
-  //   payload: {
-  //     nft,
-  //   },
-  // })
+  dispatch({
+    type: 'GET_NFT',
+    payload: {
+      nft,
+    },
+  })
+
+  return nft;
+} 
+
+  // Create a new NFT
+export const createNft = async (data, dispatch) => {
+
+  const response = await fetch(`${BASE_URL}/nfts`, {
+    method: 'POST', 
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+
+  const nft = await response.json();
+
+  dispatch({
+    type: 'CREATE_NFT',
+    payload: {
+      nft,
+    },
+  })
+
+  return nft;
 }
+
+  // Get user info 
+  export const getUser = async (data, dispatch) => {
+ 
+    const response = await fetch(`${BASE_URL}/users/${data.id}`);
+    const user = await response.json();
+
+    dispatch({
+      type: 'GET_USER',
+      payload: {
+        user,
+      },
+    })
+
+    return user;
+  }
+
+  // Delete an NFT
+

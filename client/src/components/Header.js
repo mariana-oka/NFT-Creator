@@ -5,7 +5,8 @@ import styled from 'styled-components';
 const Header = () => {
   return (
     <Wrapper>
-      <Logo>Logo</Logo>
+      {/* add logo image  */}
+      <img src="https://res.cloudinary.com/dk9mn4cvz/image/upload/v1669738927/logo_o1ssgy.svg" alt="logo" />
       <Button>Button</Button>
     </Wrapper>
   );
@@ -16,11 +17,11 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #F5F5F5;
   height: 80px;
   padding: 0 20px;
-`;
+  background-color: #141416;
 
+`;
 //Create a styled component for the logo
 const Logo = styled.div`
   font-size: 24px;
