@@ -48,7 +48,25 @@ express()
 
   .post('/nfts', async (req, res) => {
     try {
-      const result = await nftHandlers.createNft(req.body);
+      const { 
+        contractAddress,
+        transactionHash,
+        blockExplorerUrl,
+        userId,
+        walletAddress,
+        name,
+        description
+      } = req.body;
+
+      const result = await nftHandlers.createNft({ 
+        contractAddress, 
+        transactionHash, 
+        blockExplorerUrl, 
+        userId, 
+        walletAddress,
+        name,
+        description,
+      });
       
       res.status(200).json(result);
     } catch (error) {

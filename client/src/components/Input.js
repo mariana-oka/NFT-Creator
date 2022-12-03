@@ -1,26 +1,27 @@
 import styled from "styled-components"
 
 // renders the input field for the form
-const Input = ({type, placeholder, name, required, handleChange}) => {
+const Input = ({type, placeholder, name, required, id, handleChange}) => {
     return (
         <StyledInput 
             type={type} 
             placeholder={placeholder} 
             required={required} 
             // send the text to form with handleChange
-            onChange={(e) => handleChange(name, e.target.value)}
+            id={id}
+            onChange={(event) => handleChange(event)}
         />
     )
 }
 
 const StyledInput = styled.input`
-    font-family: 'inter', sans-serif;
     font-size: 16px;
-    border-radius: 48px;
-    width: 400px;
-    border: 2px solid #EEEFF4;
+    border-radius: 20px;
+    width: 410px;
+    border: 2px solid #353945;
     padding: 12px;
-    margin: 5px 10px;
+    margin: 16px 0px;
+
 `
 
 export default Input

@@ -3,7 +3,7 @@ const db = require('../db');
 
 class Nft {
   constructor(data) {
-    this.id = `NF-${uuid()}`;
+    this.id = data.id || `NF-${uuid()}`;
     this.createdAt = new Date();
     this.userId = data.userId;
     this.userWallet = data.userWallet;
@@ -51,6 +51,17 @@ class Nft {
 
     await db.nfts.insertOne(nft);
 
+    return nft;
+  }
+
+  static async update(data) {
+    const nft = new this(data);
+
+    await db.nfts.updateOne(
+      { id: nft.id },
+      { $set: nft }
+    )
+    
     return nft;
   }
 }

@@ -60,7 +60,6 @@ const App = () => {
                   <Route path={"/confirmation"} element={<Confirmation />} /> 
                   <Route path={"/nft-gallery"} element={<NFTGallery />} />
                   <Route path={"/profile-edit"} element={<ProfileEdit />} />
-                  <Route path={"/confirmation"} element={<Confirmation />} />
                   <Route path={"/nfts/:id"} element={<NFT />} />
                 </>
               )

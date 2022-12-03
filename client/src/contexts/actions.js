@@ -75,16 +75,50 @@ export const getNft = async (data, dispatch) => {
 
   // Create a new NFT
 export const createNft = async (data, dispatch) => {
+  const { name, description, file, walletAddress, userId } = data;
 
-  const response = await fetch(`${BASE_URL}/nfts`, {
-    method: 'POST', 
+  const formData = new FormData();
+  formData.append('file', file);
+  
+  const mintResponse = await fetch(
+    `https://api.nftport.xyz/v0/mints/easy/files?` + new URLSearchParams({
+      chain: 'polygon',
+      name,
+      description,
+      mint_to_address: walletAddress,
+    }), {
+      method: 'POST',
+      headers: {
+        Accept: '*/*',
+        Authorization: process.env.REACT_APP_NFT_PORT_API_TOKEN,
+      },
+      body: formData, 
+    }
+  );
+
+  const { 
+    contract_address: contractAddress,
+    transaction_hash: transactionHash,
+    transaction_external_url: blockExplorerUrl,
+  } = await mintResponse.json();
+
+  const serverResponse = await fetch(`${BASE_URL}/nfts`, {
+    method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify({
+      contractAddress,
+      transactionHash,
+      blockExplorerUrl,
+      name,
+      description,
+      userId,
+      walletAddress
+    })
   });
 
-  const nft = await response.json();
+  const nft = await serverResponse();
 
   dispatch({
     type: 'CREATE_NFT',
@@ -92,8 +126,6 @@ export const createNft = async (data, dispatch) => {
       nft,
     },
   })
-
-  return nft;
 }
 
   // Get user info 

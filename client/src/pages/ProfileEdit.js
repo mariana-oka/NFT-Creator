@@ -15,15 +15,11 @@ const ProfileEdit = ({ handleSubmit }) => {
 }
 return (
   <FormWrapper onSubmit={(e) => handleSubmit(e, formData)}>
-    <Top>
       <h3>Edit profile</h3>
-      <p>You can set preferred display name and manage your personal settings</p> 
-    </Top>
-    <ProfilePicColumn>
-      <h5>Profile photo</h5>
-      <p> We recommend an image of at least 400x400</p>
+      <p>Manage your personal settings</p> 
+      {/* <h5>Profile photo</h5> */}
         <UploadPhoto>
-          <label>Upload photo</label>
+          <label>Profile photo </label>
           <Input
             type="file"
             id="file"
@@ -31,12 +27,18 @@ return (
             required={true}
             handleChange={handleChange}
           />
-
         </UploadPhoto>
-      </ProfilePicColumn>
+        <UploadPhoto>
+          <label>Cover photo</label>
+          <Input
+            type="file"
+            id="file"
+            placeholder="Upload photo"
+            required={true}
+            handleChange={handleChange}
+          />
+        </UploadPhoto>
         {/* Upload photo field  */}
-        <ProfileInfoColumn>
-          <p>You can set preferred display name and manage your personal settings</p> 
           <h5>Account info</h5> 
           <label>Display name</label>
           <input type="text" placeholder="Enter your display name" />
@@ -45,83 +47,91 @@ return (
           <label>Portfolio or website</label>
           <input type="text" placeholder="Enter URL" />
           <button type="submit">Update Profile</button>
-        </ProfileInfoColumn>
   </FormWrapper>
 );
 }
 
 // Set text aligned to the left for PageIntro
-const Top = styled.div` 
-  margin-bottom: 64px; 
-// create mobile sized
+
+
+// Make the form wrapper children into two columns 
+const FormWrapper = styled.div`
+//center all the content inside 
+display: flex;
+flex-direction: column;
+align-items: center;
+//add a standard amount of margin top and bottom
+padding: 20px 30px 20px 30px;
+height: 90vh;
+
   @media (max-width: 768px) {
       margin-bottom: 32px;
       padding-bottom: 16px;
       border-bottom: 1px solid #E6E8EC; 
   }
   h3 {
+    margin-bottom: 42px;
     font-size: 32px;
     font-weight: 700;
     color: white;
 
   }
+
+  h5 {
+    margin-bottom: 30px;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+  }
   p {
+    margin-bottom: 32px;
     font-size: 16px;
     font-weight: 400;
     color: white;
     margin-top: 16px;
   }
-`;
 
-
-const FormWrapper = styled.div`
-  display: flex;
-  //center form
-  max-width: 896px;
-  //make the child elements relative to the wrapper
-  position: relative;
-  h5 {
-    margin-top: 2rem;
-    color: white;
-
-  }
-`;
-
-
-const ProfilePicColumn = styled.div`
-  //make this element relative to the wrapper
-  position: relative;
-  flex-direction: column;
-  align-items: center;
-  /* padding: 0 10vw; */
-  h5 {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    color: white;
+  input   {
+    margin-top: 8px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    border-radius: 20px;
+    width: 410px;
+    border: 2px solid #353945;
+    padding: 12px;
+    margin: 16px 0px;
   }
 
+
 `;
+
+// const LeftColumn = styled.div`
+//   width: 50%;
+//   padding-right: 32px;
+//   @media (max-width: 768px) {
+//     width: 100%;
+//     padding-right: 0;
+//   }
+
+// `;
+
+// const RightColumn = styled.div`
+//   width: 50%;
+//   padding-left: 32px;
+//   @media (max-width: 768px) {
+//     width: 100%;
+//     padding-left: 0;
+//   }
+// `;
+
 
 const UploadPhoto = styled.div`
   display: flex;
   flex-direction: column;
+  max-width: 600px;
   align-items: center;
   padding: 0 10vw;
-  h5 {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    color: white;
-
-  }
-
-`;
-
-const ProfileInfoColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 10vw;
-  h5 {
+  h5 {i
     margin-top: 2rem;
     margin-bottom: 2rem;
     color: white;

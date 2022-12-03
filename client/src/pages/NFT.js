@@ -30,6 +30,12 @@ const NFT = () => {
         </RightColumn>
         </NFTCard>  
       </NFTWrapper>
+      <iframe
+        title="iframe"
+        src="https://carbon.now.sh/embed?bg=rgba%28171%2C+184%2C+195%2C+1%29&t=dracula-pro&wt=none&l=javascript&width=680&ds=true&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=56px&ph=56px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&code=contractAddress%253A%25200x55a8dbe6f191b370885d01e30cb7d36d0fa99f16%250AtokenId%253A%252010878"
+        style={{width: '647px', height: '223px', border: 0, transform: 'scale(1)', overflow: 'hidden '}}
+        sandbox="allow-scripts allow-same-origin">
+      </iframe>
     </NFTContainer>
   );
 };

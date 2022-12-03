@@ -149,8 +149,8 @@ h2 {
 
 input {
   width: 100%;
-  border-radius: 12px;
-  border: 2px solid #E6E8EC;
+  border-radius: 10px;
+  border: 1px solid #353945;
   background: none;
   font-family: 'Poppins', sans-serif;
   font-size: 14px;

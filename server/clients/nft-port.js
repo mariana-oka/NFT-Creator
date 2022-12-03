@@ -40,7 +40,7 @@ class NftPort {
 
   async getTokenId({ transactionHash }) {  
     console.log('[NFT Client] Waiting for blockchain to mine NFT');
-    await this.sleep(10_000);
+    await this.sleep(5_000);
     
     const response = await fetch(
       `${BASE_URL}/mints/${transactionHash}?chain=polygon`, 
@@ -61,7 +61,7 @@ class NftPort {
   
   async getUri({ contractAddress, tokenId }) {
     console.log('[NFT Client] Waiting for blockhain to enrich NFT metadata.');
-    await this.sleep(10_000);
+    // await this.sleep(60_000);
 
     console.log('[NFT Client] Getting NFT URI from IFPS');
     
@@ -79,7 +79,7 @@ class NftPort {
       
     const uri = data?.nft?.file_url ?? data?.nft?.metadata?.image;
       
-    console.log('[NFT Client] NFT created! 🌈');
+    console.log('[NFT Client] NFT created! 🌈' , uri);
 
     return uri;
   }

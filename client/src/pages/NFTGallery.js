@@ -26,8 +26,6 @@ const NFTGallery = () => {
   return (
     <NFTGalleryContainer>
       <CoverPhoto>
-        <EditCoverBtn> Edit cover photo</EditCoverBtn>
-        {/* <EditCoverBtn>Change Cover Photo</EditCoverBtn> */}
         <EditProfileBtn
           onClick={() => navigate(`/profile-edit`)}
           >
@@ -158,7 +156,7 @@ const EditCoverBtn = styled.button`
   color: white;
   border: none;
   border-radius: 20px;
-  border: 1px solid white;
+  /* border: 1px solid white; */
   padding: 5px 10px;
   cursor: pointer;
   &:hover {
@@ -174,12 +172,12 @@ const EditProfileBtn = styled.button`
   background-color: transparent;
   /* background-color: #141416; */
   color: white;
-  border: none;
+  border: 2px solid white;
   border-radius: 20px;
-  border: 1px solid white;
   padding: 5px 10px;
   cursor: pointer;
   &:hover {
+    border: none;
     background-color: #3772FF
   }
 `;

@@ -6,35 +6,54 @@ const findNfts = async (userId) => {
 
   if (userId) {
     nfts = await Nft.findAllForUser(userId);
+
+    await _enrichNfts(nfts);
   } else {
     nfts = await Nft.findAll();
+
+    await _enrichNfts(nfts);
   }
 
   return nfts;
+}
+
+const _enrichNfts = async (nfts) => {
+  const enrichedNfts = nfts.filter(nft => nft.uri);
+  const unenrichedNfts = nfts.filter(nft => !nft.uri);
+
+  for (const unenrichedNft of unenrichedNfts) {
+    const { contractAddress, tokenId } = unenrichedNft;
+
+    const uri = await nftPortClient.getUri({ contractAddress, tokenId });
+
+    unenrichedNft.uri = uri;
+
+    await Nft.update(unenrichedNft);
+  }
+
+  return [
+    ...enrichedNfts,
+    ...unenrichedNfts
+  ]
 }
 
 //Create a new async function to get the individual NFT by ID from the database
 const getNft = async (id) => {
   const nft = await Nft.find(id);
   return nft;
-  console.log (nft)
 }
 
 const createNft = async (data) => {
   const {
+    contractAddress,
+    transactionHash,
+    blockExplorerUrl,
+    walletAddress, 
     name,
-    description, 
-    userWallet, 
-    file,
-    mediaType,
+    description,
     userId,
+    mediaType = 'image'
   } = data;
-
-  const { 
-    contract_address: contractAddress,
-    transaction_hash: transactionHash,
-    transaction_external_url: blockExplorerUrl,
-  } = await nftPortClient.mint({  name, description, userWallet, file });
 
   const tokenId = await nftPortClient.getTokenId({ transactionHash });
 
@@ -43,14 +62,14 @@ const createNft = async (data) => {
   const nft = await Nft.create({
     blockExplorerUrl,
     name, 
+    userWallet: walletAddress, 
     description,
-    userWallet,
-    userWallet, 
     mediaType, 
     userId, 
     tokenId, 
     uri,
     contractAddress,
+    transactionHash,
   });
 
   return nft;

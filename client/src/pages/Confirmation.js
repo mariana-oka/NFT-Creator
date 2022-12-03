@@ -1,7 +1,10 @@
 import styled from "styled-components";
+import { useNavigate  } from "react-router-dom";
 
 //Create a confirmation page with JSX with a centered image and a h2 below that says "Your NFT is being minted. Please wait for confirmation." with a centered button that says "Go to Profile" that will redirect to the dashboard page.
 const Confirmation = () => {
+  const navigate = useNavigate();
+
   return (
     <ConfirmationWrapper>
       <LoadingImage>
@@ -9,7 +12,7 @@ const Confirmation = () => {
       </LoadingImage>
       <h2>Minting in progress</h2>
       <h5> We are working on it. Please wait for confirmation</h5>
-      <button>Go to Profile</button>
+      <button onClick={() => navigate('/nft-gallery')}>Go to Profile</button>
     </ConfirmationWrapper>
   );   
 };

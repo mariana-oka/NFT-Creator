@@ -14,7 +14,7 @@ const NFTMaker = () => {
   return (
     <NFTMakerContainer>
       <h4>Generate NFT</h4>
-      <Form />
+      <Form/>
     </NFTMakerContainer>
   );
 };
@@ -28,7 +28,7 @@ const NFTMakerContainer = styled.div`
   align-items: center;
   background-color: #141416;
   h4 {
-    margin-top: 2rem;
+    margin-top: 3rem;
     margin-bottom: 2rem;
     color:white;
   }
