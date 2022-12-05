@@ -2,7 +2,7 @@
 
 Peppermint is the easiest way for people to get started with web3 and generate NFTs from their artwork. This gives you the ability to create unique tokens that are not tied to any marketplace, so you have complete control over your assets! 😀
 
-Key features: 
+KEY FEATURES:
 
 
 🔑 Easy crypto wallet creation using the Fortmatic API. No seed phrases needed.
@@ -20,8 +20,7 @@ Key features:
 
 
 
-🚀 Stretch goals (that I didn't get a chance to even get started on)
-
+🚀 STRETCH GOALS THAT I DIDN'T EVEN GET A CHANCE TO GET STARTED ON
 
 
 Show a feed of all NFTs in the blockchain separate from the profile gallery
