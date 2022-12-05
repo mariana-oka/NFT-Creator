@@ -18,6 +18,8 @@ Key features:
 🗑 Ability to delete a specific NFT from your gallery 
 
 
+
+
 🚀 Stretch goals (that I didn't get a chance to even get started on)
 
 
