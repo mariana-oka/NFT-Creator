@@ -34,18 +34,6 @@ const Confirmation = () => {
           <p>{ countdown } seconds left</p>
         </>)
       }
-      {/* //if the countdown is between 15 and 10 seconds, then the h5 will change. */}
-      {
-        countdown < 10 && countdown > 5 && (
-          <h5>Generating a unique crytographic hash code...</h5>
-        )
-      }
-      {/* //if the countdown is between 5 and 2 seconds, then the h5 will change. */}
-      {
-        countdown < 5 && countdown > 2 && (
-          <h5>Uploading your NFT to the blockchain...</h5>
-        )
-      }
       { ready && (
       <>
         <h2>Your NFT is ready!</h2>

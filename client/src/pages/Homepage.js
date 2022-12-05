@@ -11,7 +11,7 @@ const Homepage = () => {
       <Left>
         <h5>Make your own NFT</h5>
         <h1>Start minting your art</h1>
-        <p>The free and easy way to create a wallet and start minting</p> 
+        <p>The easiest way to create a wallet and start minting</p> 
 
       </Left>
       <Right>
