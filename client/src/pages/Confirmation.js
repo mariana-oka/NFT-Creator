@@ -38,7 +38,7 @@ const Confirmation = () => {
       <>
         <h2>Your NFT is ready!</h2>
         <h5>View it now!</h5>
-        <button onClick={() => navigate('/nft-gallery')}>Go to NFT</button>
+        <button onClick={() => navigate('/nft-gallery')}>Go to Profile</button>
       </>
       )}
     </ConfirmationWrapper>
