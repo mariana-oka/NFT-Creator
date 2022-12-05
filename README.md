@@ -20,12 +20,12 @@ KEY FEATURES:
 
 
 
-🚀 STRETCH GOALS THAT I DIDN'T EVEN GET A CHANCE TO GET STARTED ON
+STRETCH GOALS (THAT I DIDN'T EVEN GET A CHANCE TO GET STARTED ON):
 
 
-Show a feed of all NFTs in the blockchain separate from the profile gallery
+🚀 Show a feed of all NFTs in the blockchain separate from the profile gallery
 
-Copy to dashboard when clicking your wallet address in profile
+👤 Copy to dashboard when clicking your crypto wallet address in profile
 
 
 
