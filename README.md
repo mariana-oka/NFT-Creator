@@ -1,6 +1,8 @@
 # NFT-Creator
 
-Peppermint is the easiest way for people to get started with web3 and generate NFTs from their artwork. This gives you the ability to create unique tokens that are not tied to any marketplace, so you have complete control over your assets! 😀
+For my final project at the web development bootcamp, I wanted to dive into the experience of building on blockchain in order to make web3 accessible. 
+
+Peppermint is the easiest way for people to get started with web3 and generate NFTs from their artwork. This gives you the ability to create unique tokens that are not tied to any marketplace, so you have complete control over your assets. 😀
 
 KEY FEATURES:
 
