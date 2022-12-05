@@ -11,10 +11,10 @@ cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small,
 strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt,
 dd, ol, ul, li, fieldset, form, label, legend, table, caption,
 tbody, tfoot, thead, tr, th, td, article, aside, canvas, details,
-embed, figure, figcaption, footer, header, hgroup, menu, nav,
+embed, figure, figcaption, header, hgroup, menu, nav,
 output, ruby, section, summary, time, mark, audio, video {
-  margin: 0;
-  padding: 0;
+  /* margin: 0;
+  padding: 0; */
   border: 0;
   vertical-align: baseline; }
   }
@@ -124,6 +124,12 @@ h2 {
   &disabled {
     opacity: .5;
     pointer-events: none; }
+}
+
+a {
+  color: white;
+  font-family: 'DM Sans', sans-serif;
+  text-decoration: none;
 }
 
 .button-stroke {

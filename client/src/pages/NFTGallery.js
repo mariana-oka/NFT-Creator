@@ -9,6 +9,8 @@ const NFTGallery = () => {
   const { state, dispatch} = useContext(AppContext);
   const [nfts, setNfts] = useState([]);
   const [user] = useState(state.user);
+  console.log(user)
+
   // const id = useParams();
   const navigate = useNavigate();
 
@@ -18,11 +20,7 @@ const NFTGallery = () => {
       .then(data => setNfts(data))
   }, []);
 
-  //fetch the user from the database
 
-  //Create a cover image at the top of the page, add a EditCoverPhoto button and a EditProfile button 
-  // Create a block with the user information like username, wallet address, bio and website,
-  // Add a block overlapping the cover slightly and to the right of the gallery, that contains user profile picture and user details below it
   return (
     <NFTGalleryContainer>
       <CoverPhoto>
@@ -30,29 +28,26 @@ const NFTGallery = () => {
           onClick={() => navigate(`/profile-edit`)}
           >
           Edit profile</EditProfileBtn>
-        <CoverPhotoImage src="https://images.unsplash.com/photo-1622737133809-d95047b9e673?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80" />
+        <CoverPhotoImage src={user.coverPhotoUrl ? user.coverPhotoUrl : "https://images.unsplash.com/photo-1622737133809-d95047b9e673?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"}/>
       </CoverPhoto>
-
       <ProfileBody>
         <ProfileBodyLeft>
           <UserProfileBlock>
-            <UserProfilePic src="https://images.unsplash.com/photo-1622737133809-d95047b9e673?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80" />
-            <h5>{user.name}</h5>            
-            <UserWalletAddress>{user.walletAddress}</UserWalletAddress> 
-            <UserBio>Artist and farm owner in Montana.</UserBio>
-            <UserWebsite>https://www.google.com</UserWebsite>
+            <UserProfilePic src={user.avatarUrl ? user.avatarUrl : "https://res.cloudinary.com/dk9mn4cvz/image/upload/v1670221773/Default-User-Profile_zprhan.png"}/>
+            <Username>{user.username}</Username>            
+            <UserWalletAddress
+            >{user.walletAddress.substring(0,11)}...{user.walletAddress.substring(37,41)}</UserWalletAddress> 
+            <UserBio>{user.bio}</UserBio>
+            <a href={user.portfolioLink}>Website </a>
           </UserProfileBlock>
         </ProfileBodyLeft>
         <ProfileBodyRight>
           <NFTGalleryWrapper>
-            <DivForTitle>
-              <h4>Gallery</h4>
-            </DivForTitle>
             {nfts.length > 0 && nfts.map((nft) => (
               <NFTCard 
                 onClick={() => navigate(`/nfts/${nft.id}`)}
                 key={nft.id}>
-                <NFTImage src={nft.uri} />
+                { nft.uri ? <NFTImage src={nft.uri}/> : <NFTImage src="https://res.cloudinary.com/dk9mn4cvz/image/upload/v1670025933/animation_640_lb6qly2q_xhp4p9.gif"/>}
                 <NFTName >{nft.name.substring(0, 14)}</NFTName>
               </NFTCard>
             ))}
@@ -64,19 +59,23 @@ const NFTGallery = () => {
   );
 };
 
-//make div for title take up the whole width of the gallery
+
+
+const Username = styled.h5`
+  color: #FAFC77;
+  font-size: 20px;
+`;
+
 const DivForTitle = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-start;
   margin-bottom: 16px;
 
-  //place the h4 at the extreme left of the container
   h4 {
     left:15px;
     font-size: 1.5rem;
   }     
-
 `;
 
 const ProfileBody = styled.div`
@@ -98,77 +97,58 @@ const ProfileBodyLeft = styled.div`
 const ProfileBodyRight = styled.div`
   display: flex;
   flex-direction: row;
-  width: 70%;
+  width: 75%;
+  margin-top: 20px;
 `;
 
 const UserProfileBlock = styled.div`
   position: absolute;
-  top: 20%;
-  left: 10%;
+  top: 36%;
+  left: 5%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #101012;
+  background-color: #0A0A0C;
   border-radius: 16px;
   padding: 20px;
-  width: 300px;
-  height: 300px;
+  width: 280px;
+  /* height: 340px; */
   z-index: 1;
+
+  a:hover {
+    color: #FAFC77;
+    text-decoration: underline;
+  }
+  // add separation between its children 
+  & > * {
+    margin-bottom: 5px;
+  }
 `;
 
 const UserProfilePic = styled.img`
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;  
 `;
 
 const UserWalletAddress = styled.p`
   color: white;
-  font-size: 1.2rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  font-size: 14px;
+  margin-top: 10px;
 `;
 
 const UserBio = styled.p`
-  color: white;
-  font-size: 1.2rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-`;
-
-const UserWebsite = styled.p`
-  color: white;
-  font-size: 1.2rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-`;
-
-
-
-
-const EditCoverBtn = styled.button`
-  position: absolute;
-  bottom: 10px;
-  right: 8em;
-  background-color: transparent;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  /* border: 1px solid white; */
-  padding: 5px 10px;
-  cursor: pointer;
-  &:hover {
-    background-color: #3772FF
-  }
+  color: #777E90;
+  font-size: 16px;
+  margin-bottom: 16px;
 `;
 
 
 const EditProfileBtn = styled.button`
   position: absolute;
   bottom: 10px;
-  right: 1em;
+  right: 3%;
   background-color: transparent;
   /* background-color: #141416; */
   color: white;
@@ -178,7 +158,8 @@ const EditProfileBtn = styled.button`
   cursor: pointer;
   &:hover {
     border: none;
-    background-color: #3772FF
+    background-color: #3772FF;
+    right: 3%;
   }
 `;
 
@@ -200,9 +181,9 @@ const CoverPhotoImage = styled.img`
 
 const NFTGalleryContainer = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: column;
   align-items: center;
-  padding: 0 10vw;
   h4 {
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -216,24 +197,21 @@ const NFTGalleryWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-
+  border: 1px solid red;
 `;
 
 const NFTCard = styled.div`
 // add gaps in between the NFTCards
-
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 300px;
   height: 400px;
-  margin: 1rem;
+  margin: 18px;
   border: 1px solid #353945;
   cursor: pointer;
-
-
   &:hover {
-    border: 1px solid #3772ff;
+    opacity: 0.5;
   }
 `;
 
@@ -241,21 +219,25 @@ const NFTImage = styled.img`
   width: 100%;
   height: 300px;
   object-fit: cover;
+  margin-left: 20px;
+  border-radius: 16px;
+
 `;
 
 const NFTName = styled.h2`
   color: white;
-  font-size: 16px;
-  font-weight: 700;
-  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  margin-top: 28px;
+  font-weight: 400;
+  font-family: 'DM Sans', sans-serif;
 `;
 
-const NFTDescription = styled.p`
-  color: white;
-  font-size: 1rem;
-  font-weight: 400;
-  margin: 1rem 0;
-`;
+// const NFTDescription = styled.p`
+//   color: white;
+//   font-size: 1rem;
+//   font-weight: 400;
+//   margin: 1rem 0;
+// `;
 
 export default NFTGallery;
 

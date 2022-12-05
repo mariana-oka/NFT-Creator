@@ -15,7 +15,7 @@ const Wrapper = styled.section`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #F5F5F5;
+  background-color: #141416;
 `;
 
 export default Error;

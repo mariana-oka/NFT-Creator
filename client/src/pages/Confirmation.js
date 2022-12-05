@@ -1,18 +1,58 @@
+import { useState, useEffect } from 'react';
 import styled from "styled-components";
 import { useNavigate  } from "react-router-dom";
 
 //Create a confirmation page with JSX with a centered image and a h2 below that says "Your NFT is being minted. Please wait for confirmation." with a centered button that says "Go to Profile" that will redirect to the dashboard page.
 const Confirmation = () => {
+  const [ready, setReady] = useState(false);
+  const [countdown, setCountdown] = useState(15);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (countdown === 1) {
+        setReady(true);
+        setCountdown(countdown - 1);
+      }
+
+      if (countdown > 0) {
+        setCountdown(countdown - 1);
+      }
+    }, 1000);
+  }, [countdown]);
 
   return (
     <ConfirmationWrapper>
       <LoadingImage>
         <img src="https://res.cloudinary.com/dk9mn4cvz/image/upload/v1669927379/animation_640_lb5jluub_vclruw.gif" alt="confirmation" />
       </LoadingImage>
-      <h2>Minting in progress</h2>
-      <h5> We are working on it. Please wait for confirmation</h5>
-      <button onClick={() => navigate('/nft-gallery')}>Go to Profile</button>
+      {
+        !ready && (
+        <>
+          <h2>Minting in progress</h2>
+          <h5> We are working on it. Please wait for confirmation</h5>
+          <p>{ countdown } seconds left</p>
+        </>)
+      }
+      {/* //if the countdown is between 15 and 10 seconds, then the h5 will change. */}
+      {
+        countdown < 10 && countdown > 5 && (
+          <h5>Generating a unique crytographic hash code...</h5>
+        )
+      }
+      {/* //if the countdown is between 5 and 2 seconds, then the h5 will change. */}
+      {
+        countdown < 5 && countdown > 2 && (
+          <h5>Uploading your NFT to the blockchain...</h5>
+        )
+      }
+      { ready && (
+      <>
+        <h2>Your NFT is ready!</h2>
+        <h5>View it now!</h5>
+        <button onClick={() => navigate('/nft-gallery')}>Go to NFT</button>
+      </>
+      )}
     </ConfirmationWrapper>
   );   
 };

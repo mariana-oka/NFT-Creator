@@ -30,23 +30,46 @@ const appReducer = (state, action) => {
         nfts: action.payload.nfts,
       }
 
-    default: {
-      return state;
+      //Create case for get user
+    case 'GET_USER':
+    return {
+      ...state,
+
+      user: action.payload.user,
     }
+
+    case 'CREATE_NFT': 
+      return {
+        ...state,
+        nft: action.payload.nft
+      }
 
     case 'GET_NFT':
       return {
         ...state,
 
         nft: action.payload.nft,
-  }
+    }
 
-  //Create case for get user
-  case 'GET_USER':
-    return {
-      ...state,
+    case 'UPDATE_USER':
+      return {
+        ...state,
+        user: action.payload.user
+      }
 
-      user: action.payload.user,
+      // add a delete nft case 
+
+    case 'DELETE_NFT':
+      const nfts = state?.nfts?.filter(nft => nft.id !== action.payload.nft.id)
+
+      return {
+        ...state,
+        nfts,
+        nft: {}
+      }
+
+    default: {
+      return state;
     }
 }}
 

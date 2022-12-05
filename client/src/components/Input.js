@@ -22,6 +22,10 @@ const StyledInput = styled.input`
     padding: 12px;
     margin: 16px 0px;
 
-`
+    &:focus {
+    outline: none;
+    border: 2px solid #779FFF;
+    }
+`;
 
 export default Input

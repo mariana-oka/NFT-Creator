@@ -20,9 +20,8 @@ const App = () => {
     <BrowserRouter>
     <Wrapper>
       <Nav>
-        {/* Logo img goes here to the left */}
         <Logo 
-          src="https://res.cloudinary.com/dk9mn4cvz/image/upload/v1669738927/logo_o1ssgy.svg" 
+          src="https://res.cloudinary.com/dk9mn4cvz/image/upload/v1670224668/peppermint_ra472b.svg" 
           alt="logo"
           onClick={() => {
             window.location.href = '/'; 
@@ -84,41 +83,33 @@ const Main = styled.div`
 
 const Logo = styled.img`
   height: 80px;
-  margin-right: 300px;
+  margin-right: 48px;
 `;
 
 const Nav = styled.nav`
   display: flex;
   align-items: center;
-  padding: 1rem 2rem;
+  /* padding: 1rem 2rem; */
   background-color: #141416;
 
-  //align links to the right side of the page
   a {
-    margin-right: 1rem;
-    color: white;
-    font-size: 1rem;
-    font-family: 'DM Sans', sans-serif;
+    color: #B8C0D3;
     text-decoration: none;
-    //all caps
-    /* text-transform: uppercase; */
-    padding-left: 2rem;
+    margin-right: 32px;
   }
 
-    &:hover {
-      text-decoration: none;
-      color: yellow;
-
+  a:hover {
+    color: white;
   }
 
-`;
+  `;
 
 
 //Style the links and button to the extreme right of the page 
 const Button = styled.button`
   position: absolute;
-  top: 0;
-  right: 0;
+  /* top: 1rem; */
+  right: 3rem;
   margin: 1rem;
   padding: 0.5rem 1rem;
   border: none;

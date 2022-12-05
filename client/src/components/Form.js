@@ -104,27 +104,15 @@ const Form = () => {
 const UploaderTxt = styled.p `
     //center in container 
     position: absolute;
-    top: 40%;
-
+    top: 25%;
 `
-const ErrorContainer = styled.div`
-    border: 1px solid white;
-    width: 100%;
-    height: 50px;
-`;
-
-const Error = styled.div`
-    color: red;
-`;
 
 const FileUploadSquare = styled.div`
 // position its children in the middle 
-    font-family: 'inter', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: 16px;
     border-radius: 20px;
     /* border: 3px solid white !important; */
-    padding: 12px;
-    margin: 10px 10px;
     color: white;
     text-align: center;
     background-color: #232730;
@@ -138,15 +126,12 @@ const FileUploadSquare = styled.div`
 `;
 
 const StyledForm = styled.form`
-    max-width: 700px;
-    margin: 20px 40px 0px 20px;
+    width: 440px;
     padding: 30px;
     display: flex;
     flex-direction: column;
     border-radius: 52px;
-    gap: 20px;
     font-size: 16px;
-    margin-top: 20px;
 
     label {
         margin-bottom: 10px;
@@ -158,9 +143,26 @@ const Div = styled.div`
     display: flex;
     flex-direction: column;
     button {
-        margin-top: 14px;
-    }
+        margin-top: 26px;
+        padding: 20px 30px;
+//center button in container
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 18px;
 
+    }
+    button:hover {
+        color: white;
+        font-weight: 900;
+        background-image: linear-gradient(90deg, #00C0FF 0%, #FFCF00 49%, #FC4F4F 80%, #00C0FF 100%);
+        animation:slidebg 2s linear infinite;
+
+        @keyframes slidebg {
+        to {
+        background-position:20vw;
+        }
+        }
+    }
 `;
 
 

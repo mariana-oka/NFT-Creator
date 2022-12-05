@@ -1,6 +1,6 @@
 import { createContext, useReducer } from 'react';
 import appReducer from './reducer';
-import { login, logout, findNfts, getNft, getUser, createNft } from './actions';
+import { login, logout, findNfts, getNft, getUser, updateUser, createNft, deleteNFT } from './actions';
 
 const initialState = {
   session: {
@@ -35,13 +35,13 @@ export const AppContextProvider = ({ children }) => {
 
           createNft: (data) => createNft(data, dispatch),
 
-          deleteNft: (data) => {},
+          deleteNft: (data) => deleteNFT(data, dispatch),
   
           createUser: (data) => {},
 
           getUser: (data) => getUser(data, dispatch),
 
-          updateUser: (data) => {},
+          updateUser: (data) => updateUser(data, dispatch),
     
           deleteUser: (data) => {},
       }}}

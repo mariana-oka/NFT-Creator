@@ -1,68 +1,102 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
 // Create a NFT gallery page with JSX
 import Input from "../components/Input";
 import {useState} from 'react';
+import { AppContext } from '../contexts/index';
+import { useNavigate } from 'react-router-dom';
 
-const ProfileEdit = ({ handleSubmit }) => {
-  const [formData, setFormData] = useState();
+const ProfileEdit = () => {
+  const [formData, setFormData] = useState([]);
+  const { state, dispatch } = useContext(AppContext);
+  const [user] = useState(state.user);
+
+  const navigate = useNavigate();
 
   /// registers what is inputted in the input fields 
-  const handleChange = (key, value) => {
+  const handleChange = (event) => {
     setFormData({
-        ...formData,
-        [key]: value
+      ...formData,
+      [event.target.id]: event.target.value
     })
-}
-return (
-  <FormWrapper onSubmit={(e) => handleSubmit(e, formData)}>
+  }
+  
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    await dispatch.updateUser({
+      ...formData,
+      id: state.user.id,
+      walletAddress: state.user.walletAddress
+    });
+
+    navigate('/nft-gallery');
+  }
+
+  return (
+    <FormWrapper onSubmit={event => handleSubmit(event)}>
       <h3>Edit profile</h3>
       <p>Manage your personal settings</p> 
       {/* <h5>Profile photo</h5> */}
-        <UploadPhoto>
-          <label>Profile photo </label>
-          <Input
-            type="file"
-            id="file"
-            placeholder="Upload photo"
-            required={true}
-            handleChange={handleChange}
-          />
-        </UploadPhoto>
-        <UploadPhoto>
-          <label>Cover photo</label>
-          <Input
-            type="file"
-            id="file"
-            placeholder="Upload photo"
-            required={true}
-            handleChange={handleChange}
-          />
-        </UploadPhoto>
-        {/* Upload photo field  */}
-          <h5>Account info</h5> 
-          <label>Display name</label>
-          <input type="text" placeholder="Enter your display name" />
-          <label>Bio</label>
-          <input type="text" placeholder="Enter your bio" />
-          <label>Portfolio or website</label>
-          <input type="text" placeholder="Enter URL" />
-          <button type="submit">Update Profile</button>
-  </FormWrapper>
-);
+      <UploadPhoto>
+        <label>Profile photo </label>
+        <Input
+          type="text"
+          id="avatarUrl"
+          placeholder="Paste image URL to update"
+          handleChange={handleChange}
+        />
+      </UploadPhoto>
+      <UploadPhoto>      
+        <label>Cover photo</label>
+        <Input
+          type="text"
+          id="coverPhotoUrl"
+          placeholder="Paste image URL to update"
+          handleChange={handleChange}
+        />
+      </UploadPhoto>
+      {/* Upload photo field  */}
+      <h5>Account info</h5> 
+      <label>Display name</label>
+      <Input
+          type="text"
+          id="username"
+          //add current name as placeholder
+          placeholder={user.username} 
+          handleChange={handleChange}
+        />
+      <label>Bio</label>
+      <Input
+          type="text"
+          id="bio"
+          placeholder={user.bio}
+          handleChange={handleChange}
+        />
+      <label>Portfolio or website</label>
+      <Input
+          type="text"
+          id="portfolioLink"
+          placeholder={user.portfolioLink}
+          handleChange={handleChange}
+        />
+      <button type="submit">Update Profile</button>
+    </FormWrapper>
+  );
 }
 
 // Set text aligned to the left for PageIntro
 
 
 // Make the form wrapper children into two columns 
-const FormWrapper = styled.div`
-//center all the content inside 
-display: flex;
-flex-direction: column;
-align-items: center;
-//add a standard amount of margin top and bottom
-padding: 20px 30px 20px 30px;
-height: 90vh;
+const FormWrapper = styled.form`
+  //center all the content inside 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  //add a standard amount of margin top and bottom
+  padding: 20px 30px 20px 30px;
+  height: 100%;
 
   @media (max-width: 768px) {
       margin-bottom: 32px;
@@ -102,8 +136,9 @@ height: 90vh;
     margin: 16px 0px;
   }
 
-
-`;
+  button {
+    margin-top: 24px;
+  }`;
 
 // const LeftColumn = styled.div`
 //   width: 50%;
@@ -124,21 +159,17 @@ height: 90vh;
 //   }
 // `;
 
-
 const UploadPhoto = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 600px;
   align-items: center;
   padding: 0 10vw;
-  h5 {i
+  h5 {
     margin-top: 2rem;
     margin-bottom: 2rem;
     color: white;
-
   }
 `;
-
-
 
 export default ProfileEdit;

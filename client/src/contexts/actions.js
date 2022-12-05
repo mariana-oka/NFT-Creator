@@ -73,6 +73,23 @@ export const getNft = async (data, dispatch) => {
   return nft;
 } 
 
+export const deleteNFT = async (nftId, dispatch) => {
+  const response = await fetch(`${BASE_URL}/nfts/${nftId}`, {
+    method: 'DELETE',
+  });
+
+  const nft = await response.json();
+
+  dispatch({
+    type: 'DELETE_NFT',
+    payload: {
+      nft,
+    },
+  })
+
+  return nft;
+}
+
   // Create a new NFT
 export const createNft = async (data, dispatch) => {
   const { name, description, file, walletAddress, userId } = data;
@@ -144,5 +161,43 @@ export const createNft = async (data, dispatch) => {
     return user;
   }
 
-  // Delete an NFT
+export const updateUser = async (data, dispatch) => {
+  const {
+    avatarUrl,
+    username,
+    bio,
+    coverPhotoUrl,
+    portfolioLink,
+    walletAddress,
+    id
+  } = data;
+  console.log(data)
+
+  const response = await fetch(`${BASE_URL}/users`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      id,
+      avatarUrl,
+      username,
+      bio,
+      coverPhotoUrl,
+      portfolioLink,
+      walletAddress
+    })
+  });
+
+  const updatedUser = await response.json();
+
+  window.sessionStorage.setItem('user', JSON.stringify(updatedUser));
+
+  dispatch({
+    type: 'UPDATE_USER',
+    payload: {
+      user: updatedUser,
+    },
+  });
+}
 

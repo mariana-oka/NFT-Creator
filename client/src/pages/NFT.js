@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { AppContext } from '../contexts/index';
 
@@ -7,6 +7,7 @@ const NFT = () => {
   const id = useParams();
   const { state, dispatch} = useContext(AppContext);
   const [nft, setNft] = useState([]);
+  const navigate = useNavigate();
   
   //Create a useEffect and use the dispatch to get the individual nft data from the database based on the id
   useEffect(() => {
@@ -15,81 +16,124 @@ const NFT = () => {
       .then(data => setNft(data))
   }, []);
 
+  const handleDelete = async () => {
+    await dispatch.deleteNft(nft.id);
+    navigate('/nft-gallery');
+  }
+
   // Create an individual NFT details page that displays the NFT image to the left and the NFTname, definition and creator to the right
   return (
     <NFTContainer>
       <NFTWrapper>
       <NFTCard key={nft.id}>
-        <LeftColumn>
+        <NFTPreview>
+          <BackButton onClick={() => navigate('/nft-gallery')}>← Back</BackButton>
           <NFTImage src={nft.uri}/>
-        </LeftColumn>
-        <RightColumn>
+        </NFTPreview>
+        <NFTDetails>
           <NFTName>{nft.name}</NFTName>
           <NFTDescription>{nft.description}</NFTDescription>
           <NFTCreator>{nft.creator}</NFTCreator>
-        </RightColumn>
+          <BlockExplorer>
+            <a href={nft.blockExplorerUrl} target="_blank" rel="noreferrer">View on blockchain 👁</a>
+          </BlockExplorer>
+          <DeleteButton
+            onClick={handleDelete}>Delete from gallery</DeleteButton>
+        </NFTDetails>
         </NFTCard>  
-      </NFTWrapper>
-      <iframe
-        title="iframe"
-        src="https://carbon.now.sh/embed?bg=rgba%28171%2C+184%2C+195%2C+1%29&t=dracula-pro&wt=none&l=javascript&width=680&ds=true&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=56px&ph=56px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&code=contractAddress%253A%25200x55a8dbe6f191b370885d01e30cb7d36d0fa99f16%250AtokenId%253A%252010878"
-        style={{width: '647px', height: '223px', border: 0, transform: 'scale(1)', overflow: 'hidden '}}
-        sandbox="allow-scripts allow-same-origin">
-      </iframe>
+      </NFTWrapper>     
     </NFTContainer>
   );
 };
 
+const BackButton = styled.button`
+  color: #141416;
+  border: none;
+  color: #fff;
+  background-color: #141416;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+    color: #141416;
+    background-color: white;
+  } 
+  `;
+const DeleteButton = styled.button`
+  background: transparent;
+  border: 2px solid #595C64;
+  border-radius: 15px;
+  color: #595C64;
+  margin-top: 20px;
+  
+// on hover change the background color to #595C64 and the text color to white
+  &:hover {
+    background: #EF466F;
+    border: none;
+    color: white;
+  }
+  `;
 
 // Have a two columns inside the NFTCard, one to the left called leftcolumn and one to the right called rightcolumn
-const LeftColumn = styled.div`
-
+const NFTPreview = styled.div`
 `;
 
-const RightColumn  = styled.div`
- 
+const NFTDetails  = styled.div`
+  align-items: flex-start;
+  //add a standard amount of margin top and bottom
+  padding: 20px 30px 20px 30px;
+`;
+
+const BlockExplorer = styled.h5`
+  margin-top: 26px;
+
+  a:hover {
+    color: #FAFC77;
+    text-decoration: underline;
+;
+  }
+
 `;
 
 const NFTContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 10vw;
+  height: 100%;
   `;
 
 const NFTWrapper = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  /* flex-wrap: wrap; */
+  justify-content: space-evenly;
   align-items: center;
   width: 100%;
+  height: 100vh;
 `;
 
 const NFTCard = styled.div`
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  width: 300px;
-  height: 400px;
-  margin: 1rem;
+  width: 400px;
+  height: 500px;
+  margin-bottom: 1rem;
   border: 1px solid #eaeaea;
+  border-radius: 30px;
+  padding: 20px 30px 20px 30px;
 `;
 
 const NFTImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border: 1px solid red;
   color: black;
+  border-radius: 16px;
 `;
 
 const NFTName = styled.h3`
   font-size: 1.5rem;
   font-weight: 400;
-  margin: 0.5rem 0;
-  border: 1px solid yellow;
+  margin-top: 20px;
   color: white;
-
 `;
 
 const NFTDescription = styled.p`

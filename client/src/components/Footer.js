@@ -4,21 +4,22 @@ import styled from 'styled-components';
 const Footer = () => {
   return (
     <FooterWrapper>
-      <h6>Made with love in Canada ❤️ </h6>
+      <h6>Made with love in Montreal ❤️ </h6>
     </FooterWrapper>
   );
 }
 
-//Create a footer Wrapper with a maximum height of 100px and a background color of #141416
+//Create a footer Wrapper that always shows at the bottom of the page and its contents are centered.
   const FooterWrapper = styled.div`
-    height: 100px;
     background-color: #141416;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    color: white;
+    text-align: center;
+    height: 100px;
+
 
     h6 {
       color: white;
+      margin-top: 280px;
     }
   `;
 
